@@ -1,140 +1,128 @@
 import React from 'react';
-import reactDom from 'react-dom';
 import ReactDOM from 'react-dom';
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      company: '',
-      quantity: '',
-      price: '',
-      num: 1,
-      items: []
-    }
+class stocks extends React.Component {
+  state = {
+    num: 0
   };
-
-  handleFormSubmit = (e) => {
-    e.preventDefault();
-
-    let items = [...this.state.items];
-
-    items.push({
-      company: this.state.company,
-      price: this.state.price,
-      quantity: this.state.quantity
-    });
-
-    this.setState({
-      items,
-      company: '',
-      price: '',
-      quantity: ''
-    });
-  };
- 
-  handleInputChange = (e) => {
-    let input = e.target;
-    let name = e.target.name;
-    let value = input.value;
-
-    this.setState({
-      [name]: value
-    })
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <Table items={ this.state.items }/>
-        <Form handleFormSubmit={ this.handleFormSubmit } 
-          handleInputChange={ this.handleInputChange }
-          newCompany={ this.state.company }
-          newPrice={ this.state.price }
-          newQuantity={ this.state.quantity } />
-      </div>
-    );
-  }
-}
-
-class Form extends React.Component {
-  render() {
-    return (
-      <div id="Form">
-        <h3>Add a new item to the table:</h3>  
-        <form onSubmit={this.props.handleFormSubmit}>
-          <label htmlFor="company">
-          회사명:
-          <input id="company" value={this.props.newCompany} 
-            type="text" name="company"
-            onChange={this.props.handleInputChange} />
-          </label>
-          <label for="price">
-          가격:
-          <input id="price" value={this.props.newPrice} 
-            type="text" name="price"
-            onChange={this.props.handleInputChange} />
-          </label>
-          <label for="quantity">
-          수량:
-          <input id="Quantity" value={this.props.newQuantity} 
-            type="text" name="quantity"
-            onChange={this.props.handleInputChange} />
-          </label>
-          <button type="submit" value="Submit">추가</button>
-        </form>
-      </div>
-    );
-  }
-}
-
-class Table extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      num: 1
-    }
-  }
-
-  handleClick = () => {
-    this.setState(prevState => {
+  shoot = (sign) => {
+    this.setState ((pre) => {
       return {
-        list: prevState.list.filter(li => !li.value)
-      };
+        num: sign
+      }
     });
-  };
+  }
 
   render() {
-    const items = this.props.items;
-    return (
-      <div id="Table">
+    if (this.state.num == 1) {
+      return (
+        <>
+        <div>
+          <button onClick = {() => this.shoot("1")}>반도체</button>
+          <button onClick = {() => this.shoot("2")}>바이오</button>
+          <button onClick = {() => this.shoot("3")}>자동차</button>
         <table>
           <thead>
-            <th>회사명</th>
-            <th>가격($)</th>
-            <th>수량(개)</th>
+            <tr>
+              <th>회사명</th><th>주가($)</th><th>전일 대비 상승률(%)</th>
+            </tr>
           </thead>
           <tbody>
-            {
-              items && items.map(item => {
-                return (
-                  <tr>
-                    <td>{item.company}</td>
-                    <td>{item.price}</td>
-                    <td>{item.quantity}</td>
-                    <button onClick={this.handleClick}>삭제</button>
-                  </tr>
-                );
-              })
-            }
+            <tr>
+              <td>TSMC</td><td>117.62</td><td>-0.54</td>
+            </tr>
+            <tr>
+              <td>인텔</td><td>57.10</td><td>-0.48</td>
+            </tr>
+            <tr>
+              <td>AMD</td><td>81.88</td><td>+0.37</td>
+            </tr>
+            <tr>
+              <td>NVIDIA</td><td>709.46</td><td>+1.78</td>
+            </tr>
           </tbody>
         </table>
-      </div>
-    );
+        </div>
+        </>
+      )
+    }
+    if (this.state.num == 2) {
+      return (
+        <>
+        <div>
+          <button onClick = {() => this.shoot("1")}>반도체</button>
+          <button onClick = {() => this.shoot("2")}>바이오</button>
+          <button onClick = {() => this.shoot("3")}>자동차</button>
+        <table>
+          <thead>
+            <tr>
+              <th>회사명</th><th>주가($)</th><th>전일 대비 상승률(%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TSMC</td><td>117.62</td><td>-0.34</td>
+            </tr>
+            <tr>
+              <td>인텔</td><td>57.10</td><td>-0.48</td>
+            </tr>
+            <tr>
+              <td>AMD</td><td>81.88</td><td>+0.37</td>
+            </tr>
+            <tr>
+              <td>NVIDIA</td><td>709.46</td><td>+1.78</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        </>
+      )
+    }
+    if (this.state.num == 3) {
+    return(
+      <>
+        <div>
+        <button onClick = {() => this.shoot("1")}>반도체</button>
+        <button onClick = {() => this.shoot("2")}>바이오</button>
+        <button onClick = {() => this.shoot("3")}>자동차</button>
+        <table>
+          <thead>
+            <tr>
+              <th>회사명</th><th>주가($)</th><th>전일 대비 상승률(%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TSMC</td><td>117.62</td><td>-0.54</td>
+            </tr>
+            <tr>
+              <td>인텔</td><td>57.10</td><td>-0.48</td>
+            </tr>
+            <tr>
+              <td>AMD</td><td>81.88</td><td>+0.37</td>
+            </tr>
+            <tr>
+              <td>NVIDIA</td><td>709.46</td><td>+1.78</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </>
+      );
+    }
+    return (
+      <>
+        <div>
+          <button onClick = {() => this.shoot("1")}>반도체</button>
+          <button onClick = {() => this.shoot("2")}>바이오</button>
+          <button onClick = {() => this.shoot("3")}>자동차</button>
+        </div>
+      </>
+    )
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('root'));
-ReactDOM.render(<Table />, document.getElementById('root'));
 
-export default App;
+ReactDOM.render(<stocks />, document.getElementById('root'));
+
+export default stocks;
